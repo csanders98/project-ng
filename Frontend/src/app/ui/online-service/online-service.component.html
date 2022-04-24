@@ -1,0 +1,32 @@
+<div class="body">
+  <mat-card class="account">
+    <div class="info-container">
+      <form [formGroup]="transactionForm" (ngSubmit)="postEvent($event)">
+        <mat-radio-group class="radio-group" aria-label="Select an option" formControlName="selectedOption">
+          <mat-radio-button class="radio-option" *ngFor="let option of options" [value]="option.id">
+            {{option.name}}
+          </mat-radio-button>
+        </mat-radio-group>
+        <div class="form-group">
+          <ng-container *ngFor="let control of additionalInfo.controls; let i = index">
+            <mat-form-field *ngIf="!control['type']" class="" appearance="fill" color="secondary">
+              <mat-label>{{control.name}}</mat-label>
+              <input matInput [formControl]="control">
+              <mat-error>{{control.name}} is required!</mat-error>
+            </mat-form-field>
+            <mat-form-field *ngIf="control['type']=== 'date'" class="date-picker" appearance="fill">
+              <mat-label>Choose a date</mat-label>
+              <input matInput [matDatepicker]="picker" [formControl]="control">
+              <mat-hint>MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </ng-container>
+        </div>
+      </form>
+    </div>
+      <div class="button-container">
+        <button mat-raised-button color="accent" [disabled]="!transactionForm.valid" (click)="postEvent($event)"><mat-icon *ngIf="!transactionForm.valid">lock</mat-icon><mat-icon *ngIf="transactionForm.valid">input</mat-icon>&nbsp;SUBMIT</button>
+      </div>
+  </mat-card>
+</div>

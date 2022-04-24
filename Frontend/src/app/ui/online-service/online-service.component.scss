@@ -1,0 +1,45 @@
+.body{
+  max-width:100%;
+  margin: 2em auto;
+  text-align: center;
+  padding-left: 13%;
+  padding-right: 13%;
+  padding-top: 10px;
+}
+
+.radio-group{
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  float: left;
+  /* display: inline-grid; */
+  /* display: grid; */
+  margin: 15px 0;
+}
+
+.form-group{
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  float: right;
+    /* display: inline-grid; */
+  /* display: grid; */
+  margin: 15px 0;
+}
+
+.radio-option {
+  margin-bottom: 12px;
+  width: fit-content;
+}
+
+.account {
+  display: grid;
+}
+
+.mat-form-field {
+  margin-bottom: 4px;
+}
+
+.date-picker {
+  width: 50%;
+}
