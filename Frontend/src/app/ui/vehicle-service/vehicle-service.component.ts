@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ContractService } from 'src/app/services/contract/contract.service';
 
 @Component({
@@ -21,7 +22,7 @@ export class VehicleServiceComponent implements OnInit {
 
   get additionalInfo() { return this.transactionForm.get('additionalInfo') as FormArray };
 
-  constructor(private fb: FormBuilder, private contract: ContractService) {
+  constructor(private fb: FormBuilder, private contract: ContractService, private snackbar: MatSnackBar) {
     this.transactionForm = new FormGroup({
       selectedOption: new FormControl("", [Validators.required]),
       additionalInfo: new FormArray([], Validators.required)
@@ -63,10 +64,12 @@ export class VehicleServiceComponent implements OnInit {
       .then((r) => {
         console.log(r);
         this.contract.success();
+        this.success();
       })
       .catch((e) => {
         console.log(e);
         this.contract.failure("Transaction failed");
+        this.error();
       });
   }
   private handleOptionChange(value) {
@@ -111,5 +114,15 @@ export class VehicleServiceComponent implements OnInit {
       default:
         break;
     }
+  }
+
+  success() {
+   this.snackbar.open("Transaction Complete!", "", {duration: 4000})
+   this.additionalInfo.clear();
+   this.transactionForm.get('selectedOption').setValue(null)
+  }
+
+  error() {
+    this.snackbar.open("Transaction Error!", "", {duration: 4000})
   }
 }
